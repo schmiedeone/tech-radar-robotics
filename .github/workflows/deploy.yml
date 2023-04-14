@@ -17,7 +17,7 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az storage blob upload-batch --account-name dcjtechradar --auth-mode key -d '$web' -s ./docs --pattern "*.html" --pattern "*.css" --pattern "*.js" --overwrite
+            az storage blob upload-batch --account-name dcjtechradar --auth-mode key -d '$web' -s ./docs --pattern "*.html|*.css|*.js" --overwrite
 
       # Azure logout
       - name: logout
