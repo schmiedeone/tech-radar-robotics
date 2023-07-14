@@ -1,26 +1,17 @@
-name: Blob storage website CI
-
+name: Build and Deploy
 on:
   push:
     branches: [master]
-
+permissions:
+  contents: write
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
 
-      - name: Upload to blob storage
-        uses: azure/CLI@v1
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          inlineScript: |
-            az storage blob upload-batch --account-name dcjtechradar --auth-mode key -d '$web' -s ./docs --overwrite
-
-      # Azure logout
-      - name: logout
-        run: |
-          az logout
-        if: always()
+          folder: docs
